@@ -12,6 +12,7 @@ from rest_framework import generics, permissions
 from snippets.models import Snippet
 from snippets.serializers import SnippetSerializer, UserSerializer
 from django.contrib.auth.models import User
+from snippets.permissions import IsOwnerOrReadOnly
 
 
 # Create your views here.
@@ -67,7 +68,8 @@ class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
    #  def get(self, request, *args, **kwargs):
    #   return self.retrieve(request, *args, **kwargs)
 
