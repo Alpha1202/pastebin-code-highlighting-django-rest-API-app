@@ -123,7 +123,7 @@ class UserList(generics.ListAPIView):
    queryset = User.objects.all()
    serializer_class = UserSerializer
 
-class UserDetails(generic.RetrieveAPIView):
-   queryset = User.object.all()
+class UserDetails(generics.RetrieveAPIView):
+   queryset = User.objects.all()
    serializer_class = UserSerializer
    
