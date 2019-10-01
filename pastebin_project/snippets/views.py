@@ -10,7 +10,8 @@ from rest_framework import generics
 # from rest_framework import mixins, generics
 # from django.http import Http404
 from snippets.models import Snippet
-from snippets.serializers import SnippetSerializer
+from snippets.serializers import SnippetSerializer, UserSerializer
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -114,3 +115,13 @@ class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
    #   elif request.method == 'DELETE':
    #      snippet.delete()
    #      return HttpResponse(status=status.HTTP_204_NO_CONTENT)
+
+
+class UserList(generics.ListAPIView):
+   queryset = User.objects.all()
+   serializer_class = UserSerializer
+
+class UserDetails(generic.RetrieveAPIView):
+   queryset = User.object.all()
+   serializer_class = UserSerializer
+   
