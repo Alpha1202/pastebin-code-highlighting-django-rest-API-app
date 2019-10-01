@@ -6,7 +6,8 @@
 # from rest_framework.decorators import api_view
 # from rest_framework.views import APIView
 # from rest_framework.response import Response
-from rest_framework import mixins, generics
+from rest_framework import generics
+# from rest_framework import mixins, generics
 # from django.http import Http404
 from snippets.models import Snippet
 from snippets.serializers import SnippetSerializer
@@ -14,9 +15,7 @@ from snippets.serializers import SnippetSerializer
 # Create your views here.
 
 # @api_view(['GET','POST'])
-class SnippetList(mixins.ListModelMixin,
-                  mixins.CreateModelMixin,
-                  generics.GenericAPIView):
+class SnippetList(generics.ListCreateAPIView):
    queryset = Snippet.objects.all()
    serializer_class = SnippetSerializer
 
@@ -24,11 +23,11 @@ class SnippetList(mixins.ListModelMixin,
    List all code snippets, or create a new snippet.
    """
    
-   def get(self, request, *args, **kwargs):
-      return self.list(request, *args, **kwargs)
+   # def get(self, request, *args, **kwargs):
+   #    return self.list(request, *args, **kwargs)
 
-   def post(self, request, *args, **kwargs):
-      return self.create(request, *args, **kwargs)
+   # def post(self, request, *args, **kwargs):
+   #    return self.create(request, *args, **kwargs)
 
    #  def get(self, request, format=None):
    #      snippets = Snippet.objects.all()
@@ -58,10 +57,7 @@ class SnippetList(mixins.ListModelMixin,
    #      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # @api_view(['GET','PUT', 'DELETE'])
-class SnippetDetail(mixins.RetrieveModelMixin,
-                    mixins.UpdateModelMixin,
-                    mixins.DestroyModelMixin,
-                    generics.GenericAPIView):
+class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     Retrieve, update or delete a code snippet.
     """
@@ -69,14 +65,14 @@ class SnippetDetail(mixins.RetrieveModelMixin,
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
 
-    def get(self, request, *args, **kwargs):
-     return self.retrieve(request, *args, **kwargs)
+   #  def get(self, request, *args, **kwargs):
+   #   return self.retrieve(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-      return self.update(request, *args, **kwargs)
+   #  def put(self, request, *args, **kwargs):
+   #    return self.update(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
-      return self.destroy(request, *args, **kwargs)
+   #  def delete(self, request, *args, **kwargs):
+   #    return self.destroy(request, *args, **kwargs)
 
    #  def get_object(self, pk):
 
