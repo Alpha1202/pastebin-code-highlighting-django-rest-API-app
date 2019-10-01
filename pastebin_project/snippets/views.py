@@ -6,12 +6,13 @@
 # from rest_framework.decorators import api_view
 # from rest_framework.views import APIView
 # from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics, permissions
 # from rest_framework import mixins, generics
 # from django.http import Http404
 from snippets.models import Snippet
 from snippets.serializers import SnippetSerializer, UserSerializer
 from django.contrib.auth.models import User
+
 
 # Create your views here.
 
@@ -19,11 +20,12 @@ from django.contrib.auth.models import User
 class SnippetList(generics.ListCreateAPIView):
    queryset = Snippet.objects.all()
    serializer_class = SnippetSerializer
-
+   permission_classes = [permissions.IsAuthenticatedOrReadOnly]
    """
    List all code snippets, or create a new snippet.
    """
-   
+   def perform_create(self, serializer):
+      serializer.save(owner=self.request.user)
    # def get(self, request, *args, **kwargs):
    #    return self.list(request, *args, **kwargs)
 
@@ -65,7 +67,7 @@ class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
-
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
    #  def get(self, request, *args, **kwargs):
    #   return self.retrieve(request, *args, **kwargs)
 
